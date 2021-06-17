@@ -1,0 +1,14 @@
+{
+  "name": "@my-nextjs-blog/server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.ts",
+  "scripts": {
+    "start": "node dist/app.js",
+    "start:dev": "nodemon src/app.ts",
+    "build": "rimraf dist && tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
