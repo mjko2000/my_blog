@@ -9,11 +9,11 @@ type FooterProps = {
 const Footer = (props: FooterProps) => {
 
   return (
-    <div className='w-full h-96 bg-gray-800 p-20'>
+    <div className='w-full h-96 bg-gray-800 md:p-20 p-2'>
       <div className='h-1/2'>
 
       </div>
-      <div className = 'flex flex-row'>
+      <div className = 'flex md:flex-row flex-col'>
         <div className = 'flex-1'>
           <p className='text-white font-bold'>GET IN TOUCH</p>
           <table className="my-4 table-auto text-left text-gray-400 text-xs font-light">
@@ -50,7 +50,7 @@ const Footer = (props: FooterProps) => {
           </div>
 
         </div>
-        <div className = "self-end text-gray-400">
+        <div className = "self-end text-gray-400 md:mt-0 mt-4">
           <a>© 2021 Ndeva. All rights reserved.</a>
         </div>
       </div>

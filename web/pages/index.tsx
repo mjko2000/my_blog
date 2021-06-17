@@ -8,7 +8,7 @@ export default function Home() {
   const [value, setValue] = useState<Number|undefined>()
   const scrollToRef = createRef<any>()
   return (
-    <div>
+    <div className = 'w-full'>
       <div
         className = 'flex flex-col w-full md:h-screen h-80 bg-cover items-center justify-center'
         style = {{
@@ -19,9 +19,10 @@ export default function Home() {
         <a className = 'text-white text-4xl font-bold p-2'
         >Welcome to Ndeva blog</a>
         <div
-          className = 'py-2 px-8 box-border border-2 cursor-pointer transition duration-500 transform hover:scale-110 hover:bg-white text-white hover:text-gray-700'
+          onClick = {() => {scrollToRef.current.scrollIntoView()}} 
+          className = 'py-2 px-8 box-border border-2 cursor-pointer md:transition duration-500 md:transform md:hover:scale-110 md:hover:bg-white text-white md:hover:text-gray-700'
         >
-          <a onClick = {() => {scrollToRef.current.scrollIntoView()}} className = 'text-lg'>READ MORE</a>
+          <p className = 'text-lg'>READ MORE</p>
         </div>
       </div>
       <div ref = {scrollToRef} /> 

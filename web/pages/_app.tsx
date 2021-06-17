@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return window.matchMedia('(prefers-color-scheme: dark)').removeEventListener("change", handleMode)
   }, [])
   return (
-    <div className='font-serif bg-gray-100'>
+    <div className='font-serif bg-gray-100 w-full'>
       <ThemeProvider theme={{
         ...useTheme(),
         ...Themes.darkTheme
