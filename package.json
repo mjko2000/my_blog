@@ -9,8 +9,8 @@
     "build": "npm run server:build && npm run web:build",
     "server:build": "cd server && npm run build",
     "web:dev": "cd web && npm run dev",
-    "web:build": "cd web && next build",
-    "web:start": "cd web && next start"
+    "web:build": "cd web && npm run build",
+    "web:start": "cd web && npm run start"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.4",
