@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 import {ButtonBase, Grid, Box} from '@material-ui/core';
-import Post from './Post';
+import Post from './PostItem';
 
 type PostsProps = {
 

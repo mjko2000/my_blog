@@ -12,8 +12,8 @@ const Post = (props: PostProps) => {
   
   return(
     <a
-      href = 'htts://google.com.vn'
-      className = 'w-full rounded-lg shadow-md' 
+      href = 'https://google.com.vn'
+      className = 'w-full rounded-lg shadow-md bg-white' 
       style = {{height: '500px'}}
       onMouseEnter = {() => setHover(true)}
       onMouseLeave = {() => setHover(false)}

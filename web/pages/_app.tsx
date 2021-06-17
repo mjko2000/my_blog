@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     return window.matchMedia('(prefers-color-scheme: dark)').removeEventListener("change", handleMode)
   }, [])
   return (
-    <div className='font-serif'>
+    <div className='font-serif bg-gray-100'>
       <ThemeProvider theme={{
         ...useTheme(),
         ...Themes.darkTheme
@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Head>
           <title>Ndeva Blog</title>
           <meta name="description" content="Ndeva Blog" />
+          <meta property="og:image" content="https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x675.jpg" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Header />

@@ -30,20 +30,20 @@ const Header = (props: HeaderProps) => {
           :
           "bg-black")
         +
-        " px-4 flex fixed z-10 flex-row items-center transition duration-500 opacity w-full h-12"
+        " md:px-12 px-4 flex fixed z-10 flex-row items-center transition duration-500 opacity w-full h-12"
       }
     >
-      <div className={(transparent ? "text-gray-400" : "text-white") + " flex-1 font-bold"}>
+      <div className={(transparent ? "text-white" : "text-white") + " flex-1 font-bold"}>
         Ndeva Blog
       </div>
       <div className = 'flex flex-row items-center'>
-        <div className={transparent ? "text-gray-400" : "text-white"}>
+        <div className={transparent ? "text-white" : "text-white"}>
           Menu
         </div>
         <IconButton className={'focus:outline-none'}>
           <Menu
             fontSize='large'
-            className={(transparent ? 'text-gray-400' : 'text-white')}
+            className={(transparent ? 'text-white' : 'text-white')}
           />
         </IconButton>
       </div>
