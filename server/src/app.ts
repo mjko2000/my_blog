@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 import express, { Request, Response } from "express";
 import next from 'next'
+import routes from './routes'
 dotenv.config({path: '../.env'})
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -10,14 +11,11 @@ const handleNext = nextApp.getRequestHandler()
 const app = express();
 const port = process.env.PORT || 5055;
 
+app.use('/api',routes)
 app.get('*', (req, res) => {
     return handleNext(req, res)
 })
 nextApp.prepare()
-
-app.get("/", (req: Request, res: Response) => {
-    res.send("Hello world!");
-});
 
 
 app.listen(port, () => {
