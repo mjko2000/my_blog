@@ -17,6 +17,7 @@ const Footer = (props: FooterProps) => {
         <div className = 'flex-1'>
           <p className='text-white font-bold'>GET IN TOUCH</p>
           <table className="my-4 table-auto text-left text-gray-400 text-xs font-light">
+            <tbody>
             <tr>
               <th>88, 17 Street, Tan Thuan Tay,</th>
               <th className='pl-20'><a href='mailto:ndeva3199@gmail.com'>ndeva3199@gmail.com</a></th>
@@ -25,6 +26,7 @@ const Footer = (props: FooterProps) => {
               <th>Ho Chi Minh City</th>
               <th className='pl-20'>+84 912 244 933</th>
             </tr>
+            </tbody>
           </table>
           <div className = 'text-white'>
             <a

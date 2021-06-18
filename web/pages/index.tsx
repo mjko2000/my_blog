@@ -1,10 +1,15 @@
 import Image from 'next/image'
-import { createRef, useCallback, useEffect, useState } from 'react'
+import { createRef, memo, useCallback, useEffect, useState } from 'react'
 import { ButtonBase, IconButton } from '@material-ui/core'
 import Posts from '../src/components/home/Posts'
 import Footer from '../src/components/home/Footer'
+import { Router } from 'next/dist/client/router'
 
-export default function Home() {
+type HomeProps  = {
+  router: Router;
+  darkMode: boolean;
+}
+function Home({router, darkMode}: HomeProps) {
   const [value, setValue] = useState<Number|undefined>()
   const scrollToRef = createRef<any>()
   return (
@@ -31,3 +36,5 @@ export default function Home() {
     </div>
   )
 }
+
+export default memo(Home)
