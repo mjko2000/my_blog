@@ -12,7 +12,7 @@ const Post = (props: PostProps) => {
   const [hover, setHover] = useState<boolean>(false)
   
   return(
-    <Link href = '/posts/22'>
+    <Link scroll = {false} href = '/posts/22'>
       <div
         className = 'w-full rounded-lg shadow-md bg-white cursor-pointer' 
         style = {{height: '500px'}}

@@ -1,15 +1,32 @@
 import Image from 'next/image'
 import { createRef, memo, useCallback, useEffect, useState } from 'react'
-import { ButtonBase, IconButton } from '@material-ui/core'
+import { GetStaticProps, InferGetStaticPropsType } from 'next'
 import Posts from '../src/components/home/Posts'
 import Footer from '../src/components/home/Footer'
 import { Router } from 'next/dist/client/router'
 
-type HomeProps  = {
+type PostType = {
+  title: string;
+  content: string;
+  thumbnailUrl: string;
+}
+interface HomeProps extends InferGetStaticPropsType<typeof getStaticProps> {
   router: Router;
   darkMode: boolean;
 }
-function Home({router, darkMode}: HomeProps) {
+
+export const getStaticProps: GetStaticProps = async () => {
+  const result = await fetch("https://serene-ocean-09276.herokuapp.com/api/posts/getListPost").then(res => res.json())
+  // console.log('result', result)
+  const listPost: [PostType] = result.data ? result.data : []
+  return {
+    props: {
+      listPost
+    }
+  }
+}
+
+function Home({router, darkMode, listPost}: HomeProps) {
   const [value, setValue] = useState<Number|undefined>()
   const scrollToRef = createRef<any>()
   return (
@@ -31,7 +48,7 @@ function Home({router, darkMode}: HomeProps) {
         </div>
       </div>
       <div ref = {scrollToRef} /> 
-      <Posts />
+      <Posts listPost = {listPost} />
       <Footer />
     </div>
   )
