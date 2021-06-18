@@ -14,7 +14,7 @@ export default function PostDetail(props: PostDetailProps) {
       <div
         className='flex flex-col w-full md:h-screen h-80 bg-cover items-center justify-center'
         style={{
-          backgroundImage: `url("https://cdn.wallpaspersafari.com/98/6/q9uadS.jpg")`,
+          backgroundImage: `url("https://cdn.wallpapersafari.com/98/6/q9uadS.jpg")`,
           backgroundRepeat: 'no-repeat'
         }}
       >
