@@ -6,6 +6,7 @@ import { ThemeProvider, useTheme } from '@material-ui/core/styles';
 import Themes from '../src/config/themes/index'
 import Head from 'next/head'
 import Header from '../src/components/home/Header'
+import Footer from '../src/components/home/Footer'
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [darkMode, setDarkMode] = useState<boolean>(false)
   //Handle darkMode
@@ -29,8 +30,9 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           <meta property="og:image" content="https://wiki.matbao.net/wp-content/uploads/2019/09/blog-la-gi-2-1200x675.jpg" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <Header router = {router} />
-        <Component {...pageProps} darkMode={darkMode} router = {router} />
+        <Header router={router} />
+        <Component {...pageProps} darkMode={darkMode} router={router} />
+        <Footer />
 
       </ThemeProvider>
 

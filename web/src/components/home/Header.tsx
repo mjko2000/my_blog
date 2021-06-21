@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, memo, useEffect } from 'react'
-import { Container, IconButton } from '@material-ui/core'
+import { ButtonBase, Container, IconButton, Toolbar } from '@material-ui/core'
 import { Menu } from '@material-ui/icons'
 import MyDrawer from '../custom/MyDrawer'
 import { Router } from 'next/dist/client/router'
@@ -8,21 +8,35 @@ import { Router } from 'next/dist/client/router'
 type HeaderProps = {
   router: Router;
 }
-const transAnim = "transition duration-500 "
+
 const Header = (props: HeaderProps) => {
+  
   const { router } = props
   const [transparent, setTransparent] = useState<boolean>(true)
+  const [isMobile, setMobile] = useState<boolean>(false)
 
   useEffect(() => {
-    function handleScroll(event: Event) {
+    function handleScroll() {
       if (window.scrollY > 200) {
         setTransparent(false)
       } else {
         setTransparent(true)
       }
     }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll);
+    setMobile(window.innerWidth > 720)
+    function handleResize() {
+      if (window.innerWidth <= 720) {
+        setMobile(false)
+      } else {
+        setMobile(true)
+      }
+    }
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener('resize', handleResize);
+    }
   }, [])
   return (
     <div>
@@ -39,11 +53,28 @@ const Header = (props: HeaderProps) => {
         <div className={("text-white") + " flex-1 font-bold"}>
           Ndeva Blog
         </div>
-        <div className='flex flex-row items-center'>
-          <div className={"text-white"}>
-            Menu
-          </div>
-          <MyDrawer router={router} />
+        <div className='flex flex-row items-center text-white'>
+          {isMobile && (
+            <React.Fragment>
+              <ButtonBase
+                className = 'focus:outline-none'
+              >
+                Login
+              </ButtonBase>
+              <ButtonBase
+                style = {{marginLeft: 12}}
+                className = 'focus:outline-none'
+              >
+                Sign Up
+              </ButtonBase>
+            </React.Fragment>
+          )}
+          {!isMobile && <React.Fragment>
+            <div className={"ml-2"}>
+              Menu
+            </div>
+            <MyDrawer router={router} />
+          </React.Fragment>}
         </div>
       </div>
     </div>

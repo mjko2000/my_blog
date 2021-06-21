@@ -9,7 +9,6 @@ type DrawerProps = {
 const MyDrawer = (props: DrawerProps) => {
   const { router } = props
   const [open, setOpen] = useState<boolean>(false)
-  console.log("ReRender")
   return (
     <div>
       <IconButton className={'focus:outline-none'} onClick = {() => setOpen(true)}>
