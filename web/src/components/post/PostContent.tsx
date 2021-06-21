@@ -19,7 +19,7 @@ function PostContent(props: Props) {
   }, [])
 
   return (
-    <div className = 'w-full px-28 text-justify py-12'>
+    <div className = 'w-full px-28 text-justify py-12 dark:text-gray-400'>
       <p className = 'font-bold text-2xl text-center mb-12'>{title}</p>
       <p dangerouslySetInnerHTML = {{__html: content}} />
     </div>

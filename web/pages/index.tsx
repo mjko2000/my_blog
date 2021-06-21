@@ -33,8 +33,8 @@ function Home({ router, darkMode }: HomeProps) {
           backgroundPosition: 'center'
         }}
       >
-        <a className='text-white text-4xl font-bold p-2'
-        >Welcome to Ndeva blog</a>
+        <p className='text-white text-2xl md:text-4xl font-bold p-2'
+        >Welcome to Ndeva blog</p>
         <div
           onClick={() => { scrollToRef.current.scrollIntoView() }}
           className='py-2 px-8 box-border border-2 cursor-pointer md:transition duration-500 md:transform md:hover:scale-110 md:hover:bg-white text-white md:hover:text-gray-700'

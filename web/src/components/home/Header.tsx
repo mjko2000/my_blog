@@ -7,11 +7,12 @@ import { Router } from 'next/dist/client/router'
 
 type HeaderProps = {
   router: Router;
+  setShowLogin: (isShow: boolean) => void
 }
 
 const Header = (props: HeaderProps) => {
   
-  const { router } = props
+  const { router, setShowLogin } = props
   const [transparent, setTransparent] = useState<boolean>(true)
   const [isMobile, setMobile] = useState<boolean>(false)
 
@@ -45,7 +46,7 @@ const Header = (props: HeaderProps) => {
           (transparent ?
             "bg-transparent"
             :
-            "bg-black")
+            "bg-black bg-opacity-50")
           +
           " md:px-12 px-4 flex fixed z-10 flex-row items-center transition duration-500 opacity w-full h-12"
         }
@@ -58,6 +59,7 @@ const Header = (props: HeaderProps) => {
             <React.Fragment>
               <ButtonBase
                 className = 'focus:outline-none'
+                onClick = {() => setShowLogin(true)}
               >
                 Login
               </ButtonBase>
@@ -73,7 +75,7 @@ const Header = (props: HeaderProps) => {
             <div className={"ml-2"}>
               Menu
             </div>
-            <MyDrawer router={router} />
+            <MyDrawer router={router} setShowLogin = {setShowLogin}/>
           </React.Fragment>}
         </div>
       </div>

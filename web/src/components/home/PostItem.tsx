@@ -10,7 +10,7 @@ const Post = (props: PostType) => {
   return (
     <Link href={'/posts/' + id}>
       <div
-        className='w-full rounded-lg shadow-md bg-white cursor-pointer'
+        className='w-full rounded-lg shadow-md bg-white dark:bg-gray-400 cursor-pointer'
         style={{ height: '500px' }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
@@ -34,7 +34,7 @@ const Post = (props: PostType) => {
             {content.slice(0, 120)}...
           </p>
         </div>
-        <div className='text-sm text-gray-400 p-4 h-1/6 border-t-2'>
+        <div className='text-sm text-gray-500 p-4 h-1/6 border-t-2 border-white dark:border-gray-300'>
           <p>Ndeva</p>
           <p>{new Date().toDateString()}</p>
         </div>

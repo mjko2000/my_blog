@@ -1,13 +1,14 @@
 import React, { memo, useState } from 'react'
 import { Drawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@material-ui/core'
-import { Home as HomeIcon, Menu as MenuIcon } from '@material-ui/icons'
+import { Home as HomeIcon, Menu as MenuIcon, Person as PersonIcon } from '@material-ui/icons'
 import { Router } from 'next/dist/client/router'
 
 type DrawerProps = {
   router: Router;
+  setShowLogin: (input: boolean) => void
 }
 const MyDrawer = (props: DrawerProps) => {
-  const { router } = props
+  const { router, setShowLogin } = props
   const [open, setOpen] = useState<boolean>(false)
   return (
     <div>
@@ -31,6 +32,14 @@ const MyDrawer = (props: DrawerProps) => {
                 <HomeIcon className='text-white' />
               </ListItemIcon>
               <ListItemText primary="Home" />
+            </ListItem>
+            <ListItem button onClick = {() => {
+              setShowLogin(true)
+            }}>
+              <ListItemIcon>
+                <PersonIcon className='text-white' />
+              </ListItemIcon>
+              <ListItemText primary="Log In / Sign In" />
             </ListItem>
           </List>
         </div>
