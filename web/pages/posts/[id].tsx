@@ -39,10 +39,9 @@ export const getStaticProps: GetStaticProps = async ({params}: any) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
-  const data = await fetch(`${API_URL}posts/getListPost`).then(res => res.json())
+  // const data = await fetch(`${API_URL}posts/getListPost`).then(res => res.json())
   return{
-    paths: data.data.map((post:any) => ({params: {id: post.id}})),
-    // paths: [{params: ""}]
+    paths: [],
     fallback: true
   }
 }
