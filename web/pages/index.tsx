@@ -3,6 +3,7 @@ import { createRef, memo, useCallback, useEffect, useState } from 'react'
 import { GetServerSideProps, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import Posts from '../src/components/home/Posts'
 import { API_URL } from '../src/config/config'
+import { useListPostAPI } from '../src/fetcher/postsAPI/getListPost'
 
 export type PostType = {
   id: string;
@@ -18,9 +19,6 @@ interface HomeProps {
 const Home = ({listPost}: HomeProps) => {
   const scrollToRef = createRef<any>()
   // const {data, loading} = useListPostAPI()
-  // useEffect(() => {
-
-  // },[data])
   return (
     <div className='w-full'>
       <div
