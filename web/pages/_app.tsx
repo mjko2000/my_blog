@@ -1,20 +1,31 @@
 import '../styles/globals.css'
 // import 'tailwindcss/tailwind.css'
 import type { AppProps } from 'next/app'
+import { Router } from 'next/router'
 import { useEffect, useState } from 'react'
 import Themes from '../src/config/themes/index'
 import Head from 'next/head'
 import Header from '../src/components/home/Header'
 import Footer from '../src/components/home/Footer'
 import LoginForm from '../src/components/auth/LoginForm';
-var cache = {}
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const [showLogin, setShowLogin] = useState(false)
   useEffect(() => {
-    if ('scrollRestoration' in history) {
-      // Back off, browser, I got this...
-      history.scrollRestoration = 'auto';
-    }
+    const cachedPageHeight:any = []
+    const html:any = document.querySelector('html')
+
+    Router.events.on('routeChangeStart', () => {
+      cachedPageHeight.push(document.documentElement.offsetHeight)
+    })
+
+    Router.events.on('routeChangeComplete', () => {
+      html.style.height = 'initial'
+    })
+    Router.events.on('beforePopState',() => {
+      html.style.height = `${cachedPageHeight.pop()}px`
+
+      return true
+    })
   },[])
   return (
     <div className='font-serif bg-gray-100 dark:bg-gray-800 w-full'>
