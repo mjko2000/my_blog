@@ -13,7 +13,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   useEffect(() => {
     if ('scrollRestoration' in history) {
       // Back off, browser, I got this...
-      history.scrollRestoration = 'manual';
+      history.scrollRestoration = 'auto';
     }
   },[])
   return (
