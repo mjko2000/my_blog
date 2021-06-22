@@ -8,7 +8,7 @@ const Post = (props: PostType) => {
   const [hover, setHover] = useState<boolean>(false)
 
   return (
-    <Link href={'/posts/[id]'} as = {'/'+id}>
+    <Link href={'/posts/[id]'} as = {'/posts/'+id}>
       <div
         className='w-full rounded-lg shadow-md bg-white dark:bg-gray-400 cursor-pointer'
         style={{ height: '500px' }}
