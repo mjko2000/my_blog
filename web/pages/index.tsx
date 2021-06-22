@@ -2,8 +2,6 @@ import Image from 'next/image'
 import { createRef, memo, useCallback, useEffect, useState } from 'react'
 import { GetServerSideProps, GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import Posts from '../src/components/home/Posts'
-import { Router } from 'next/dist/client/router'
-import { useListPostAPI } from '../src/fetcher/postsAPI/getListPost'
 import { API_URL } from '../src/config/config'
 
 export type PostType = {
@@ -49,12 +47,13 @@ const Home = ({listPost}: HomeProps) => {
 }
 
 export const getStaticProps: GetStaticProps = async ({locale}) => {
-  const data = await fetch(API_URL+"posts/getListPost").then(res => res.json())
+  console.log("Fetch")
+  const data = await fetch(`http://localhost:${process.env.PORT}/posts/getListPost`).then(res => res.json())
   return{
     props: {
       listPost: data.data
     },
-    revalidate: 60
+    revalidate: 60,
   }
 }
 export default memo(Home)
