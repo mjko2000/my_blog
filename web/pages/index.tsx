@@ -51,8 +51,7 @@ export const getStaticProps: GetStaticProps = async ({}) => {
   return{
     props: {
       listPost: data.data
-    },
-    revalidate: 60,
+    }
   }
 }
 export default memo(Home)
