@@ -9,7 +9,7 @@ router.get('/getListPost', async (req: Request, res: Response) => {
       id: i.toString(),
       title: await fetch("http://metaphorpsum.com/sentences/"+rand).then(reponse => reponse.text()),
       content: await fetch("http://metaphorpsum.com/paragraphs/"+rand).then(reponse => reponse.text()),
-      thumbnailUrl: `https://picsum.photos/id/${i}/1000/600`
+      thumbnailUrl: `https://picsum.photos/id/${i+rand}/1000/600`
     })
   }
   res.status(200).json({
