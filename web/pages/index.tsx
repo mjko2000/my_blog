@@ -46,8 +46,7 @@ const Home = ({listPost}: HomeProps) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({locale}) => {
-  console.log("Fetch")
+export const getStaticProps: GetStaticProps = async ({}) => {
   const data = await fetch(`${API_URL}/posts/getListPost`).then(res => res.json())
   return{
     props: {
