@@ -1,7 +1,7 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 const router = Router();
 
-router.get('/getListPost', async (req, res) => {
+router.get('/getListPost', async (req: Request, res: Response) => {
   const data: any = []
   for (let i = 0; i < 11; i++) {
     data.push({

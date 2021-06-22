@@ -58,7 +58,7 @@ function LoginForm(props: Props) {
           </button>
         </form>
         <p className='text-gray-400 text-sm mb-2'>Login as</p>
-        <div className='flex flex-row justify-center'>
+        <div className='flex flex-row justify-center mb-4'>
           <RoundedButton
             onClick = {() => {}}
           >
@@ -71,6 +71,10 @@ function LoginForm(props: Props) {
           <LinkedInIcon className = 'text-white' />
           </RoundedButton>
         </div>
+        <button 
+          onClick = {() => {}}
+          className = "text-gray-400 text-sm mb-4"
+        >Dont's have an account? Create one!</button>
       </div>
     </CustomModal>
   )

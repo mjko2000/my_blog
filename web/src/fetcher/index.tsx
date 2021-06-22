@@ -8,12 +8,11 @@ export interface FetchType {
   body?: BodyInit | null | undefined
 }
 
-// const fetcher = ({body,method,url}: FetchType) => fetch( API_URL + url, { method, body }).then(res => res.json())
-export const fetcher = (input: FetchType) =>  fetch(input.url, input).then(res => {
+export const fetcher = (input: FetchType) =>  fetch(input.url, {...input, headers: {"locale": "vi"}}).then(res => {
   return res.json()
 })
 const useFetcher = (url: string,fetcherI: typeof fetcher) => {
-  const {data, error} = useSWR(url, fetcherI )
+  const {data, error} = useSWR(url,{ revalidateOnFocus: true, fetcher: fetcherI } )
   return {
     data: data?.data,
     isError: error || (data?.resultCode === -1),

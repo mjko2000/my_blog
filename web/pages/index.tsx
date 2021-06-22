@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { createRef, memo, useCallback, useEffect, useState } from 'react'
-import { GetStaticProps, InferGetStaticPropsType } from 'next'
+import { GetStaticProps, InferGetStaticPropsType, NextPage } from 'next'
 import Posts from '../src/components/home/Posts'
 import { Router } from 'next/dist/client/router'
 import { useListPostAPI } from '../src/fetcher/postsAPI/getListPost'
@@ -12,17 +12,16 @@ export type PostType = {
   thumbnailUrl: string;
 }
 interface HomeProps {
-  router: Router;
-  darkMode: boolean;
+  listPost: PostType[];
 }
 
 
-function Home({ router, darkMode }: HomeProps) {
+const Home = ({listPost}: HomeProps) => {
   const scrollToRef = createRef<any>()
-  const {data, loading} = useListPostAPI()
-  useEffect(() => {
+  // const {data, loading} = useListPostAPI()
+  // useEffect(() => {
 
-  },[data])
+  // },[data])
   return (
     <div className='w-full'>
       <div
@@ -43,31 +42,19 @@ function Home({ router, darkMode }: HomeProps) {
         </div>
       </div>
       <div ref={scrollToRef} />
-      <Posts listPost={data} />
+      <Posts listPost={listPost} />
     </div>
   )
 }
 
-// export const getStaticProps: GetStaticProps = async () => {
-//   // const result = await fetch("https://serene-ocean-09276.herokuapp.com/api/posts/getListPost").then(res => res.json())
-//   // console.log('result', result)
-//   console.log("fetch")
-//   const data = []
-//   for(let i = 0; i < 11; i++) {
-//     data.push({
-//       id: i.toString(),
-//       title: await fetch("http://metaphorpsum.com/sentences/1").then(reponse => reponse.text()),
-//       content: await fetch("http://metaphorpsum.com/paragraphs/4").then(reponse => reponse.text()),
-//       thumbnailUrl: `https://picsum.photos/id/${i}/1000/600`
-//     })
-//   }
-//   const listPost: PostType[] = data
-//   return {
-//     props: {
-//       listPost
-//     },
-//     revalidate: 10
-//   }
-// }
-
+export const getStaticProps: GetStaticProps = async ({locale}) => {
+  const data = await fetch("http://localhost:3000/api/posts/getListPost").then(res => res.json())
+  console.log("locale",locale)
+  return{
+    props: {
+      listPost: data.data
+    },
+    revalidate: 60
+  }
+}
 export default memo(Home)

@@ -12,7 +12,7 @@ const Posts = ({listPost}: PropsType) => {
   return(
     <div className = 'grid md:grid-cols-3 grid-cols-1 gap-10 justify-items-center py-10 md:px-16 px-4'>
       {!listPost && [0,1,2,3,4,5].map(item => <PostSkeleton key = {item.toString()} />)}
-      {listPost.map((post: any, index: any) => <Post {...post} key = {post.id?.toString()} />)}
+      {listPost?.map((post: any, index: any) => <Post {...post} key = {post.id?.toString()} />)}
     </div>
   )
 }

@@ -7,9 +7,9 @@ import Themes from '../src/config/themes/index'
 import Head from 'next/head'
 import Header from '../src/components/home/Header'
 import Footer from '../src/components/home/Footer'
-import CustomModal from '../src/components/custom/CustomModal';
 import LoginForm from '../src/components/auth/LoginForm';
-function MyApp({ Component, pageProps, router }: AppProps) {
+var cache = {}
+const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const [darkMode, setDarkMode] = useState<boolean>(false)
   const [showLogin, setShowLogin] = useState(false)
   //Handle darkMode
