@@ -10,6 +10,12 @@ import LoginForm from '../src/components/auth/LoginForm';
 var cache = {}
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const [showLogin, setShowLogin] = useState(false)
+  useEffect(() => {
+    if ('scrollRestoration' in history) {
+      // Back off, browser, I got this...
+      history.scrollRestoration = 'manual';
+    }
+  },[])
   return (
     <div className='font-serif bg-gray-100 dark:bg-gray-800 w-full'>
       <Head>
