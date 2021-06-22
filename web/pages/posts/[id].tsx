@@ -1,5 +1,5 @@
 import { Router } from 'next/dist/client/router'
-import PostContent from '../src/components/post/PostContent'
+import PostContent from '../../src/components/post/PostContent'
 
 type PostDetailProps  = {
   router: Router;
