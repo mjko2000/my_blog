@@ -42,6 +42,7 @@ const Home = ({listPost}: HomeProps) => {
       </div>
       <div ref={scrollToRef} />
       <Posts listPost={listPost} />
+      <a href = 'https://serene-ocean-09276.herokuapp.com/posts/7'>Here</a>
     </div>
   )
 }
