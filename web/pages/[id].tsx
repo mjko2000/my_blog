@@ -4,6 +4,7 @@ import { ButtonBase, IconButton } from '@material-ui/core'
 import { Router } from 'next/dist/client/router'
 import PostContent from '../src/components/post/PostContent'
 import { GetStaticProps } from 'next'
+import { API_URL } from '../src/config/config'
 
 type PostDetailProps  = {
   router: Router;
@@ -29,7 +30,7 @@ function PostDetail(props: PostDetailProps) {
 }
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
-  const data = await fetch("http://localhost:3000/api/posts/getListPost").then(res => res.json())
+  const data = await fetch(API_URL+"posts/getListPost").then(res => res.json())
 
   return {
     props: {
@@ -43,7 +44,7 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 }
 
 export async function getStaticPaths() {
-  const data = await fetch("http://localhost:3000/api/posts/getListPost").then(res => res.json())
+  const data = await fetch(API_URL+"posts/getListPost").then(res => res.json())
 
   // Get the paths we want to pre-render based on posts
   const paths = data.data.map((post:any) => ({
