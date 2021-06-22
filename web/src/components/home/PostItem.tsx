@@ -8,8 +8,8 @@ const Post = (props: PostType) => {
   const [hover, setHover] = useState<boolean>(false)
 
   return (
-    <Link href={'/posts/[id]'} as = {'/posts/'+id} scroll = {true} prefetch = {false} >
-      <div
+    <a
+        href = {"/posts/"+id}
         className='w-full rounded-lg shadow-md bg-white dark:bg-gray-400 cursor-pointer'
         style={{ height: '500px' }}
         onMouseEnter={() => setHover(true)}
@@ -38,8 +38,7 @@ const Post = (props: PostType) => {
           <p>Ndeva</p>
           <p>{new Date().toDateString()}</p>
         </div>
-      </div>
-    </Link>
+      </a>
   )
 }
 
