@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 // import 'tailwindcss/tailwind.css'
 import type { AppProps } from 'next/app'
-import { Router } from 'next/router'
+import { Router, useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Themes from '../src/config/themes/index'
 import Head from 'next/head'
@@ -13,15 +13,14 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   useEffect(() => {
     const cachedPageHeight:any = []
     const html:any = document.querySelector('html')
-
-    Router.events.on('routeChangeStart', () => {
+    router.events.on('routeChangeStart', () => {
       cachedPageHeight.push(document.documentElement.offsetHeight)
     })
 
-    Router.events.on('routeChangeComplete', () => {
+    router.events.on('routeChangeComplete', () => {
       html.style.height = 'initial'
     })
-    Router.events.on('beforePopState',() => {
+    router.beforePopState(() => {
       html.style.height = `${cachedPageHeight.pop()}px`
 
       return true
