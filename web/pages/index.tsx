@@ -4,6 +4,7 @@ import { GetServerSideProps, GetStaticProps, InferGetStaticPropsType, NextPage }
 import Posts from '../src/components/home/Posts'
 import { API_URL } from '../src/config/config'
 import { useListPostAPI } from '../src/fetcher/postsAPI/getListPost'
+import Thread from '../src/components/home/Thread'
 
 export type PostType = {
   id: string;
@@ -18,7 +19,6 @@ interface HomeProps {
 
 const Home = ({listPost}: HomeProps) => {
   const scrollToRef = createRef<any>()
-  // const {data, loading} = useListPostAPI()
   return (
     <div className='w-full'>
       <div
@@ -39,17 +39,21 @@ const Home = ({listPost}: HomeProps) => {
         </div>
       </div>
       <div ref={scrollToRef} />
-      <Posts listPost={listPost} />
+      {/* <Posts listPost={data} /> */}
+      <Thread />
+      <Thread />
+      <Thread />
+      <Thread />
     </div>
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({}) => {
-  const data = await fetch(`${API_URL}posts/getListPost`).then(res => res.json())
-  return{
-    props: {
-      listPost: data.data
-    }
-  }
-}
+// export const getStaticProps: GetStaticProps = async ({}) => {
+//   const data = await fetch(`${API_URL}posts/getListPost`).then(res => res.json())
+//   return{
+//     props: {
+//       listPost: data.data
+//     }
+//   }
+// }
 export default memo(Home)

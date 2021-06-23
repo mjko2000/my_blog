@@ -3,15 +3,17 @@ import { PlayCircleOutlineOutlined } from '@material-ui/icons'
 import Link from 'next/link'
 import { PostType } from '../../../pages'
 
-const Post = (props: PostType) => {
-  const { content, thumbnailUrl, title, id } = props
+interface PostProps extends PostType {
+  className?: string;
+}
+const Post = (props: PostProps) => {
+  const { content, thumbnailUrl, title, id, className } = props
   const [hover, setHover] = useState<boolean>(false)
-
   return (
     <Link href={'/posts/[id]'} as = {'/posts/'+id} scroll = {true} prefetch = {false} >
       <div
-        className='w-full rounded-lg shadow-md bg-white dark:bg-gray-400 cursor-pointer'
-        style={{ height: '500px' }}
+        className={'rounded-lg shadow-md bg-white dark:bg-gray-400 cursor-pointer '+className}
+        style={{ height: '500px', minWidth: 400 }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >

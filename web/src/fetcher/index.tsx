@@ -9,10 +9,11 @@ export interface FetchType {
 }
 
 export const fetcher = (input: FetchType) =>  fetch(input.url, {...input, headers: {"locale": "vi"}}).then(res => {
+  console.log("fetching")
   return res.json()
 })
 const useFetcher = (url: string,fetcherI: typeof fetcher) => {
-  const {data, error} = useSWR(url,{ revalidateOnFocus: true, fetcher: fetcherI } )
+  const {data, error} = useSWR(url,{ revalidateOnReconnect: true, fetcher: fetcherI } )
   return {
     data: data?.data,
     isError: error || (data?.resultCode === -1),
