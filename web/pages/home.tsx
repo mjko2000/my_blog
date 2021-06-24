@@ -19,16 +19,16 @@ export interface TopicType {
   url: string;
   thumbnailUrl: string;
 }
-interface IndexProps {
+interface HomeProps {
   listTopic: TopicType[];
 }
 
 
-const Index = ({listTopic}: IndexProps) => {
-  // const scrollToRef = createRef<any>()
+const Home = ({listTopic}: HomeProps) => {
+  const scrollToRef = createRef<any>()
   return (
     <div className='w-full'>
-      {/* <div
+      <div
         className='flex flex-col w-full md:h-screen h-80 bg-cover items-center justify-center'
         style={{
           backgroundImage: `url("https://picsum.photos/id/0/5616/3744")`,
@@ -46,18 +46,18 @@ const Index = ({listTopic}: IndexProps) => {
         </div>
       </div>
       <div ref={scrollToRef} />
-      {listTopic.map(topic => <Thread key = {topic.id} {...topic}/>)} */}
+      {/* <Posts listPost={data} /> */}
+      {listTopic.map(topic => <Thread key = {topic.id} {...topic}/>)}
     </div>
   )
 }
 
 export const getStaticProps: GetStaticProps = async ({}) => {
-  // const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
+  const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
   return{
     props: {
-      // listTopic: data.data ? data.data : []
+      listTopic: data.data ? data.data : []
     },
-    redirect: '/home'
   }
 }
-export default memo(Index)
+export default memo(Home)
