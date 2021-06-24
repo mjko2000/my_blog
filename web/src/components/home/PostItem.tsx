@@ -10,10 +10,10 @@ const Post = (props: PostProps) => {
   const { content, thumbnailUrl, title, id, className } = props
   const [hover, setHover] = useState<boolean>(false)
   return (
-    <Link href={'/posts/[id]'} as = {'/posts/'+id} scroll = {true} prefetch = {false} >
+    <Link href={'/post/[id]'} as = {'/post/'+id} scroll = {true} prefetch = {false} >
       <div
         className={'rounded-lg shadow-md bg-white dark:bg-gray-400 cursor-pointer '+className}
-        style={{ height: '500px', minWidth: 400 }}
+        style={{ height: '500px', minWidth: 370, maxWidth: 450 }}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >

@@ -10,17 +10,10 @@ interface PropsType {
 }
 // 'grid md:grid-cols-3 grid-cols-1 gap-10 justify-items-center py-10 md:px-16 px-4'
 const Posts = ({listPost}: PropsType) => {
-  // const scrollRef = createRef<any>()
-  // const [showScroll, setShowScroll] = useState<boolean>(true)
 
   return(
     <div 
-      className = 'flex overflow-scroll px-12 mt-2'
-      // ref = {scrollRef}
-      // onScroll = {e => {
-      //   const offset = scrollRef.current.scrollLeft;
-      //   console.log(scrollRef.current.scrollWidth - offset - window.innerWidth)
-      // }}
+      className = 'flex overflow-scroll md:px-12 px-2 mt-2'
     >
       {!listPost && [0,1,2,3,4,5].map(item => <PostSkeleton key = {item.toString()} />)}
       {listPost?.map((post: any, index: any) => <Post {...post} key = {post.id?.toString()} className = 'mr-12' />)}
@@ -32,7 +25,7 @@ const PostSkeleton = () => {
 
   return(
     <div
-        className='w-full rounded-lg shadow-md bg-white cursor-pointer ml-2'
+        className='w-full rounded-lg shadow-md bg-white cursor-pointer mr-12'
         style={{ height: '500px', minWidth: 400 }}
       >
         <div className='w-full h-1/2'

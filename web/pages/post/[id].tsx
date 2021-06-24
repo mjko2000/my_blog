@@ -29,7 +29,7 @@ function PostDetail(props: PostDetailProps) {
 
 export const getStaticProps: GetStaticProps = async ({params}: any) => {
   const {id} = params
-  const data = await fetch(`${API_URL}posts/${id}`).then(res => res.json())
+  const data = await fetch(`${API_URL}post/${id}`).then(res => res.json())
   return{
     props: {
       ...data.data
@@ -38,7 +38,7 @@ export const getStaticProps: GetStaticProps = async ({params}: any) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
-  // const data = await fetch(`${API_URL}posts/getListPost`).then(res => res.json())
+  // const data = await fetch(`${API_URL}post/getListPost`).then(res => res.json())
   return{
     paths: [],
     fallback: true

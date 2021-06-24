@@ -6,18 +6,25 @@ import { API_URL } from '../src/config/config'
 import { useListPostAPI } from '../src/fetcher/postsAPI/getListPost'
 import Thread from '../src/components/home/Thread'
 
-export type PostType = {
+export interface PostType {
   id: string;
   title: string;
   content: string;
   thumbnailUrl: string;
 }
+
+export interface TopicType {
+  id: string;
+  title: string;
+  url: string;
+  thumbnailUrl: string;
+}
 interface HomeProps {
-  listPost: PostType[];
+  listTopic: TopicType[];
 }
 
 
-const Home = ({listPost}: HomeProps) => {
+const Home = ({listTopic}: HomeProps) => {
   const scrollToRef = createRef<any>()
   return (
     <div className='w-full'>
@@ -40,20 +47,17 @@ const Home = ({listPost}: HomeProps) => {
       </div>
       <div ref={scrollToRef} />
       {/* <Posts listPost={data} /> */}
-      <Thread />
-      <Thread />
-      <Thread />
-      <Thread />
+      {listTopic.map(topic => <Thread key = {topic.id} {...topic}/>)}
     </div>
   )
 }
 
-// export const getStaticProps: GetStaticProps = async ({}) => {
-//   const data = await fetch(`${API_URL}posts/getListPost`).then(res => res.json())
-//   return{
-//     props: {
-//       listPost: data.data
-//     }
-//   }
-// }
+export const getStaticProps: GetStaticProps = async ({}) => {
+  const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
+  return{
+    props: {
+      listTopic: data.data ? data.data : []
+    }
+  }
+}
 export default memo(Home)

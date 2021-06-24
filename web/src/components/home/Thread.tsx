@@ -1,21 +1,24 @@
 import Link from 'next/link'
 import React, { memo } from 'react'
+import { TopicType } from '../../../pages'
 import { useListPostAPI } from '../../fetcher/postsAPI/getListPost'
 import Posts from './Posts'
 
-interface Props {}
+interface Props extends TopicType {
+  
+}
 
 function Thread(props: Props) {
-  const {} = props
+  const {id,title,url} = props
   const {data, loading} = useListPostAPI()
 
   return (
-    <div className = 'flex flex-col mt-12'>
-      <Link href = '/topic/things'>
-        <div className = 'dark:text-gray-400 hover:text-blue-600 text-2xl border-b-2 border-gray-400 py-2 mx-12' >
-          <a className = 'cursor-pointer'>Things make you love</a>
+    <div className = 'mt-12'>
+        <div className = 'dark:text-gray-400 text-2xl border-b-2 border-gray-400 py-2 md:mx-12 mx-2' >
+          <Link  href = {'/topic/'+url}>
+            <a className = 'cursor-pointer hover:text-blue-600'>{title}</a>
+          </Link>
         </div>
-      </Link>
       <Posts listPost = {data} />
     </div>
   )
