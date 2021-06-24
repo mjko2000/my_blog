@@ -5,6 +5,7 @@ import Posts from '../src/components/home/Posts'
 import { API_URL } from '../src/config/config'
 import { useListPostAPI } from '../src/fetcher/postsAPI/getListPost'
 import Thread from '../src/components/home/Thread'
+import { Router } from 'next/dist/client/router'
 
 export interface PostType {
   id: string;
@@ -21,11 +22,15 @@ export interface TopicType {
 }
 interface IndexProps {
   listTopic: TopicType[];
+  router: Router;
 }
 
 
-const Index = ({listTopic}: IndexProps) => {
+const Index = ({listTopic, router}: IndexProps) => {
   // const scrollToRef = createRef<any>()
+  useEffect(() => {
+    router.push('/home')
+  },[])
   return (
     <div className='w-full'>
       {/* <div
@@ -57,10 +62,6 @@ export const getStaticProps: GetStaticProps = async ({}) => {
     props: {
       // listTopic: data.data ? data.data : []
     },
-    redirect: {
-      permanent: false,
-      destination: '/home'
-    }
   }
 }
 export default memo(Index)
