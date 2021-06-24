@@ -57,7 +57,10 @@ export const getStaticProps: GetStaticProps = async ({}) => {
     props: {
       // listTopic: data.data ? data.data : []
     },
-    redirect: '/home'
+    redirect: {
+      permanent: false,
+      destination: '/home'
+    }
   }
 }
 export default memo(Index)
