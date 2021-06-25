@@ -41,16 +41,20 @@ export const getStaticProps: GetStaticProps = async ({params}: any) => {
   }
 }
 
-// export const getStaticPaths: GetStaticPaths = async ({}) => {
-//   const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
-//   if(!data.data) return {
-//     paths: [],
-//     fallback: false
-//   }
-//   return{
-//     paths: data.data ? data.data.map((topic:any) => ({params:{topic: topic.url}})) : [],
-//     fallback: false
-//   }
-// }
+export const getStaticPaths: GetStaticPaths = async ({}) => {
+  const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
+  return {
+    paths: [],
+    fallback: false
+  }
+  if(!data.data) return {
+    paths: [],
+    fallback: false
+  }
+  return{
+    paths: data.data ? data.data.map((topic:any) => ({params:{topic: topic.url}})) : [],
+    fallback: false
+  }
+}
 
 export default memo(Topic)
