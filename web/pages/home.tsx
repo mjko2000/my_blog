@@ -53,7 +53,7 @@ const Home = ({listTopic}: HomeProps) => {
   )
 }
 
-export const getStaticProps: GetStaticProps = async ({}) => {
+export const getServerSideProps: GetServerSideProps = async ({}) => {
   const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
   return{
     props: {
