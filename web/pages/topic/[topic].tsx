@@ -43,10 +43,10 @@ export const getStaticProps: GetStaticProps = async ({params}: any) => {
 
 export const getStaticPaths: GetStaticPaths = async ({}) => {
   const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
-  return {
-    paths: [],
-    fallback: false
-  }
+  // return {
+  //   paths: [],
+  //   fallback: false
+  // }
   if(!data.data) return {
     paths: [],
     fallback: false
