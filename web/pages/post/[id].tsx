@@ -3,7 +3,7 @@ import { Router } from 'next/dist/client/router'
 import { ParsedUrlQuery } from 'querystring'
 import PostContent from '../../src/components/post/PostContent'
 import { API_URL } from '../../src/config/config'
-
+import '../../styles/globals.css'
 export interface PostDetailProps {
   id: string;
   thumbnailUrl: string;
