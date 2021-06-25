@@ -18,6 +18,7 @@ export interface TopicType {
   title: string;
   url: string;
   thumbnailUrl: string;
+  listPost: PostType[];
 }
 interface HomeProps {
   listTopic: TopicType[];
@@ -47,7 +48,7 @@ const Home = ({listTopic}: HomeProps) => {
       </div>
       <div ref={scrollToRef} />
       {/* <Posts listPost={data} /> */}
-      {listTopic.map(topic => <Thread key = {topic.id} {...topic}/>)}
+      {listTopic.map(topic => <Thread key = {topic.id} {...topic} listPost = {topic.listPost} />)}
     </div>
   )
 }

@@ -1,16 +1,16 @@
 import Link from 'next/link'
 import React, { memo } from 'react'
-import { TopicType } from '../../../pages'
+import { PostType, TopicType } from '../../../pages'
 import { useListPostAPI } from '../../fetcher/postsAPI/getListPost'
 import Posts from './Posts'
 
 interface Props extends TopicType {
-  
+  listPost: PostType[];
 }
 
 function Thread(props: Props) {
-  const {id,title,url} = props
-  const {data, loading} = useListPostAPI()
+  const {id,title,url,listPost} = props
+  // const {data, loading} = useListPostAPI()
 
   return (
     <div className = 'mt-12'>
@@ -19,7 +19,7 @@ function Thread(props: Props) {
             <a className = 'cursor-pointer hover:text-blue-600'>{title}</a>
           </Link>
         </div>
-      <Posts listPost = {data} />
+      <Posts listPost = {listPost} />
     </div>
   )
 }
