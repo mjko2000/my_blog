@@ -29,6 +29,12 @@ function PostDetail(props: PostDetailProps) {
 export const getStaticProps: GetStaticProps = async ({params}: any) => {
   const {id} = params
   const data = await fetch(`${API_URL}post/${id}`).then(res => res.json())
+  if(data.resultCode !== 1) return {
+    redirect: {
+      destination: '/404',
+      permanent: false
+    }
+  }
   return{
     props: {
       ...data.data

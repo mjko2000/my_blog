@@ -50,11 +50,19 @@ export const getStaticPaths: GetStaticPaths = async ({locales}) => {
     paths: [],
     fallback: false
   }
+  const paths = []
+  for(const topic of data.data){
+    const path = []
+    if(locales) for(const locale of locales){
+      path.push({
+        params: {topic: topic.url},
+        locale: locale
+      })
+    }
+    paths.push(...path)
+  }
   return{
-    paths: data.data.map((topic:any) => locales?.map(locale => ({
-      params:{topic: topic.url},
-      locale
-    }))),
+    paths,
     fallback: false,
   }
 }
