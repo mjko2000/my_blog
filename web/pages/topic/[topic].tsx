@@ -48,7 +48,7 @@ export const getStaticPaths: GetStaticPaths = async ({}) => {
     fallback: false
   }
   return{
-    paths: data.data.map((topic:any) => ({params:{topic: topic.url}})),
+    paths: data.data ? data.data.map((topic:any) => ({params:{topic: topic.url}})) : [],
     fallback: false
   }
 }
