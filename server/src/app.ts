@@ -4,6 +4,7 @@ import LRUCache from 'lru-cache'
 import compression from 'compression'
 import next from 'next'
 import routes from './routes'
+import { NextServer } from 'next/dist/server/next';
 dotenv.config({ path: '../.env' })
 
 const dev = process.env.NODE_ENV !== 'production'
@@ -25,11 +26,13 @@ nextApp.prepare().then(() => {
         /* serving _next static content using next.js handler */
         handleNext(req, res);
     });
+    server.get('/home', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
     server.get('/post/:id', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
     server.get('/topic/:topic', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
     server.get('*', (req, res) => {
       // since we don't use next's requestHandler, we lose compression, so we manually add it
-      renderAndCache(nextApp)(req, res, req.path,req.query);
+    //   renderAndCache(nextApp)(req, res, req.path,req.query);
+        server.get('*', (req, res) => handleNext(req, res))
     });
     
     // server.get('*', (req, res) => handleNext(req, res))
@@ -41,7 +44,7 @@ nextApp.prepare().then(() => {
 
 
 
-const renderAndCache = (app: any) => async function (req: any, res: any, pagePath: any, queryParams: any) {
+const renderAndCache = (app: NextServer) => async function (req: any, res: any, pagePath: any, queryParams: any) {
     const { host } = req.headers;
     // Define the cache key as you wish here:
     const key = host + req.url;
@@ -72,7 +75,7 @@ const renderAndCache = (app: any) => async function (req: any, res: any, pagePat
         };
         // if not in cache, render the page into HTML
         res.setHeader('x-cache', 'MISS');
-        console.log('SSR rendering without cache and try caching for ', key);
+        console.log('SSR rendering without cache and try caching for ', key, queryParams);
         await app.renderToHTML(req, res, pagePath, queryParams);
     } catch (err) {
         console.log(err)
