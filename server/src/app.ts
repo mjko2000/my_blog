@@ -25,10 +25,6 @@ nextApp.prepare().then(() => {
         /* serving _next static content using next.js handler */
         handleNext(req, res);
     });
-    server.use(compression());
-    server.get('/home', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
-    server.get('/post/:id', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
-    server.get('/topic/:topic', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
     server.get('*', (req, res) => {
       // since we don't use next's requestHandler, we lose compression, so we manually add it
     //   renderAndCache(nextApp)(req, res, req.path,req.query);
@@ -41,44 +37,3 @@ nextApp.prepare().then(() => {
         console.log(`server started at http://localhost:${port}`);
     });
   })
-
-
-
-const renderAndCache = (app: NextServer) => async function (req: any, res: any, pagePath: any, queryParams: any) {
-    const { host } = req.headers;
-    // Define the cache key as you wish here:
-    const key = host + req.url;
-
-    // if page is in cache, server from cache
-    if (ssrCache.has(key)) {
-        console.log('SSR Response from cache for ', key);
-        res.setHeader('x-cache', 'HIT');
-        res.end(ssrCache.get(key));
-        return;
-    }
-
-    try {
-        /**
-         * Override res.end method before sending it to app.renderToHTML
-         * to be able to get the payload (renderedHTML) and save it to cache.
-         */
-        const _resEnd = res.end.bind(res);
-        res.end = function (payload: any) {
-            // Add here custom logic for when you do not want to cache the page, for example when
-            // the status is not 200
-            if (res.statusCode !== 200) {
-                console.log('Oops, something is wrong, will skip the cache');
-            } else {
-                ssrCache.set(key, payload);
-            }
-            return _resEnd(payload);
-        };
-        // if not in cache, render the page into HTML
-        res.setHeader('x-cache', 'MISS');
-        console.log('SSR rendering without cache and try caching for ', key, pagePath, queryParams);
-        await app.renderToHTML(req, res, pagePath, queryParams);
-    } catch (err) {
-        console.log(err)
-        app.renderError(err, req, res, pagePath, queryParams);
-    }
-};
