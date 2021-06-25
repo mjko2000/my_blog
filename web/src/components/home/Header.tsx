@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, memo, useEffect } from 'react'
 import { ButtonBase, Container, IconButton, Toolbar } from '@material-ui/core'
-import { Menu } from '@material-ui/icons'
+import Link from 'next/link'
 import MyDrawer from '../custom/MyDrawer'
 import { Router } from 'next/dist/client/router'
 
@@ -51,9 +51,11 @@ const Header = (props: HeaderProps) => {
           " md:px-12 px-4 flex fixed z-10 flex-row items-center transition duration-500 opacity w-full h-12"
         }
       >
-        <div className={("text-white") + " flex-1 font-bold"}>
-          Ndeva Blog
-        </div>
+        <Link href = '/home' prefetch>
+          <div className={("text-white") + " flex-1 font-bold"}>
+            Ndeva Blog
+          </div>
+        </Link>
         <div className='flex flex-row items-center text-white'>
           {isMobile && (
             <React.Fragment>
