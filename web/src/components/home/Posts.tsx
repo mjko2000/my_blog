@@ -13,10 +13,13 @@ const Posts = ({listPost}: PropsType) => {
 
   return(
     <div 
-      className = 'flex overflow-scroll md:px-12 px-2 mt-2'
+      className = 'flex w-full overflow-scroll mt-2'
     >
       {!listPost && [0,1,2,3,4,5].map(item => <PostSkeleton key = {item.toString()} />)}
-      {listPost?.map((post: any, index: any) => <Post {...post} key = {post.id?.toString()} className = 'mr-12' />)}
+      <div className = 'flex'>
+        {listPost?.map((post: any, index: any) => <Post {...post} key = {post.id?.toString()} className = 'md:ml-12 ml-2' />)}
+        <div className = 'h-full md:w-12 w-2' />
+      </div>
     </div>
   )
 }
@@ -25,7 +28,7 @@ const PostSkeleton = () => {
 
   return(
     <div
-        className='w-full rounded-lg shadow-md bg-white cursor-pointer mr-12'
+        className='md:w-full rounded-lg shadow-md bg-white cursor-pointer mr-12'
         style={{ height: '500px', minWidth: 400 }}
       >
         <div className='w-full h-1/2'

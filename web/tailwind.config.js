@@ -5,6 +5,10 @@ module.exports = {
     extend: {
       width: {
         'postWidth': '18rem'
+      },
+      height: {
+        '100':'26rem',
+        '110':'29rem'
       }
     },
   },

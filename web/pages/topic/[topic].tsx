@@ -22,7 +22,7 @@ function Topic(props: Props) {
         <p className = 'text-4xl text-gray-200'>{title}</p>
       </div>
       <div className = 'grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 justify-items-center py-10 md:px-16 px-4'>
-      {listPost.map(post => <PostItem {...post} key = {post.id} className = 'w-1/3' />)}
+      {listPost.map(post => <PostItem {...post} key = {post.id} className = 'md:w-96 w-80' />)}
       </div>
     </div>
   )

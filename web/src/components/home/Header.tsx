@@ -51,11 +51,12 @@ const Header = (props: HeaderProps) => {
           " md:px-12 px-4 flex fixed z-10 flex-row items-center transition duration-500 opacity w-full h-12"
         }
       >
-        <Link href = '/home' prefetch>
-          <div className={("text-white") + " flex-1 font-bold"}>
+        <Link href = '/home'>
+          <div className={("text-white") + " font-bold cursor-pointer"}>
             Ndeva Blog
           </div>
         </Link>
+        <div className = 'flex-1' />
         <div className='flex flex-row items-center text-white'>
           {isMobile && (
             <React.Fragment>
