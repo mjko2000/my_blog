@@ -7,6 +7,8 @@ import { useListPostAPI } from '../src/fetcher/postsAPI/getListPost'
 import Thread from '../src/components/home/Thread'
 import { Router } from 'next/dist/client/router'
 
+import '../styles/globals.css'
+
 export interface PostType {
   id: string;
   title: string;

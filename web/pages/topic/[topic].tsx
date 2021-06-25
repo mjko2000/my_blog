@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import { PostType, TopicType } from '..'
 import PostItem from '../../src/components/home/PostItem'
 import { API_URL } from '../../src/config/config'
-
+import '../styles/globals.css'
 interface Props extends TopicType {
   listPost: PostType[]
 }
