@@ -20,13 +20,15 @@ const ssrCache = new LRUCache({
 nextApp.prepare().then(() => {
     const server = express()
     server.use('/api', routes)
+    server.use(compression());
     server.get('/_next/*', (req, res) => {
         /* serving _next static content using next.js handler */
         handleNext(req, res);
     });
+    server.get('/post/:id', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
+    server.get('/topic/:topic', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
     server.get('*', (req, res) => {
       // since we don't use next's requestHandler, we lose compression, so we manually add it
-      server.use(compression());
       renderAndCache(nextApp)(req, res, req.path,req.query);
     });
     
