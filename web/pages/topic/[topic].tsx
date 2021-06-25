@@ -5,11 +5,11 @@ import PostItem from '../../src/components/home/PostItem'
 import { API_URL } from '../../src/config/config'
 
 interface Props extends TopicType {
-  posts: PostType[]
+  listPost: PostType[]
 }
 
 function Topic(props: Props) {
-  const {posts, title, thumbnailUrl} = props
+  const {listPost, title, thumbnailUrl} = props
   return (
     <div className = 'w-full'>
       <div
@@ -23,7 +23,7 @@ function Topic(props: Props) {
         <p className = 'text-4xl text-gray-200'>{title}</p>
       </div>
       <div className = 'grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10 justify-items-center py-10 md:px-16 px-4'>
-      {posts.map(post => <PostItem {...post} key = {post.id} className = 'w-1/3' />)}
+      {listPost.map(post => <PostItem {...post} key = {post.id} className = 'w-1/3' />)}
       </div>
     </div>
   )
@@ -41,16 +41,16 @@ export const getStaticProps: GetStaticProps = async ({params}: any) => {
   }
 }
 
-export const getStaticPaths: GetStaticPaths = async ({}) => {
-  const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
-  if(!data.data) return {
-    paths: [],
-    fallback: false
-  }
-  return{
-    paths: data.data ? data.data.map((topic:any) => ({params:{topic: topic.url}})) : [],
-    fallback: false
-  }
-}
+// export const getStaticPaths: GetStaticPaths = async ({}) => {
+//   const data = await fetch(`${API_URL}topic/getListTopic`).then(res => res.json())
+//   if(!data.data) return {
+//     paths: [],
+//     fallback: false
+//   }
+//   return{
+//     paths: data.data ? data.data.map((topic:any) => ({params:{topic: topic.url}})) : [],
+//     fallback: false
+//   }
+// }
 
 export default memo(Topic)
