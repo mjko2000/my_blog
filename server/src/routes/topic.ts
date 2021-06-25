@@ -57,7 +57,7 @@ router.get('/:topic',async (req,res) => {
     data: {
       id: 0,
       title: topic,
-      url: "love",
+      url: topic,
       thumbnailUrl: `https://picsum.photos/id/${12}/3000/1600`,
       listPost
     }

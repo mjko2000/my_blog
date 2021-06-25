@@ -1,73 +1,76 @@
 import dotenv from 'dotenv'
 import express, { Request, Response } from "express";
 import LRUCache from 'lru-cache'
+import compression from 'compression'
 import next from 'next'
 import routes from './routes'
-dotenv.config({path: '../.env'})
+dotenv.config({ path: '../.env' })
 
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev, dir: '../web' })
 // console.log(__dirname)
 const handleNext = nextApp.getRequestHandler()
-const app = express();
 const port = process.env.PORT || 5055;
 
 const ssrCache = new LRUCache({
-    max: 100 * 1024 * 1024, /* cache size will be 100 MB using `return n.length` as length() function */
-    length: function (n:any, key:any) {
-        return n * 2 + key.length
-    },
-    maxAge: 1000 * 60 * 60 * 24 * 30
+    max: 20,
+    maxAge: 1000 * 60 * 60, // 1hour
 });
 
-app.use('/api',routes)
-app.get('/_next/*', (req, res) => {
-    /* serving _next static content using next.js handler */
-    handleNext(req, res);
-});
-app.get('*', (req, res) => {
-    // return handleNext(req, res)
-    return renderAndCache(req, res)
-})
-function getCacheKey(req: Request) {
-    return `${req.path}`
-}
+nextApp.prepare().then(() => {
+    const server = express()
+    server.use('/api', routes)
+  
+    server.get('/', (req, res) => {
+      // since we don't use next's requestHandler, we lose compression, so we manually add it
+      server.use(compression());
+      renderAndCache(nextApp)(req, res, '/',req.query);
+    });
+    
+    server.get('*', (req, res) => handleNext(req, res))
+  
+    server.listen(port, () => {
+        console.log(`server started at http://localhost:${port}`);
+    });
+  })
 
-async function renderAndCache(req: any, res: Response) {
-    const key = getCacheKey(req);
 
-    // If we have a page in the cache, let's serve it
+
+const renderAndCache = (app: any) => async function (req: any, res: any, pagePath: any, queryParams: any) {
+    const { host } = req.headers;
+    // Define the cache key as you wish here:
+    const key = host + req.url;
+
+    // if page is in cache, server from cache
     if (ssrCache.has(key)) {
-        console.log(`serving from cache ${key}`);
+        console.log('SSR Response from cache for ', key);
         res.setHeader('x-cache', 'HIT');
-        console.log(ssrCache.get(key))
-        res.send(ssrCache.get(key));
-        return
+        res.end(ssrCache.get(key));
+        return;
     }
 
     try {
-        console.log(`key ${key} not found, rendering`);
+        /**
+         * Override res.end method before sending it to app.renderToHTML
+         * to be able to get the payload (renderedHTML) and save it to cache.
+         */
+        const _resEnd = res.end.bind(res);
+        res.end = function (payload: any) {
+            // Add here custom logic for when you do not want to cache the page, for example when
+            // the status is not 200
+            if (res.statusCode !== 200) {
+                console.log('Oops, something is wrong, will skip the cache');
+            } else {
+                ssrCache.set(key, payload);
+            }
+            return _resEnd(payload);
+        };
+        // if not in cache, render the page into HTML
         res.setHeader('x-cache', 'MISS');
-        const html = await nextApp.renderToHTML(req, res, req.path, req.query);
-        console.log(html)
-        // // Something is wrong with the request, let's skip the cache
-        if (res.statusCode !== 200) {
-            res.send(html);
-            return
-        }
-
-        // Let's cache this page
-        ssrCache.set(key, html);
-
-        // res.send(html)
+        console.log('SSR rendering without cache and try caching for ', key);
+        await app.renderToHTML(req, res, pagePath, queryParams);
     } catch (err) {
         console.log(err)
-        nextApp.renderError(err, req, res, req.path, req.query)
+        app.renderError(err, req, res, pagePath, queryParams);
     }
-}
-nextApp.prepare()
-
-
-app.listen(port, () => {
-    console.log(`server started at http://localhost:${port}`);
-});
+};
