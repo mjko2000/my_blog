@@ -26,9 +26,9 @@ nextApp.prepare().then(() => {
         /* serving _next static content using next.js handler */
         handleNext(req, res);
     });
-    server.get('/home', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
-    server.get('/post/:id', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
-    server.get('/topic/:topic', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.query))
+    server.get('/home', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.params))
+    server.get('/post/:id', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.params))
+    server.get('/topic/:topic', (req, res) => renderAndCache(nextApp)(req, res, req.path,req.params))
     server.get('*', (req, res) => {
       // since we don't use next's requestHandler, we lose compression, so we manually add it
     //   renderAndCache(nextApp)(req, res, req.path,req.query);
@@ -75,7 +75,7 @@ const renderAndCache = (app: NextServer) => async function (req: any, res: any, 
         };
         // if not in cache, render the page into HTML
         res.setHeader('x-cache', 'MISS');
-        console.log('SSR rendering without cache and try caching for ', key, queryParams);
+        console.log('SSR rendering without cache and try caching for ', key, pagePath, queryParams);
         await app.renderToHTML(req, res, pagePath, queryParams);
     } catch (err) {
         console.log(err)
