@@ -5,7 +5,6 @@ import Posts from '../src/components/home/Posts'
 import { API_URL } from '../src/config/config'
 import { useListPostAPI } from '../src/fetcher/postsAPI/getListPost'
 import Thread from '../src/components/home/Thread'
-import '../styles/globals.css'
 export interface PostType {
   id: string;
   title: string;
